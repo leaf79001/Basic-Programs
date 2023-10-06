@@ -1,0 +1,38 @@
+import os
+import sys
+
+import tkinter as tk
+from tkinter import ttk
+
+def get_files(folder_path):
+    # Get all files in folder_path ending with '.py'
+    files = [file for file in os.listdir(folder_path) if file.endswith('.py')]
+    return files
+
+def run_file(event):
+    # Get the file path of the selected file
+    selection = event.widget.selection()
+    if selection:
+        file_path = os.path.join(folder_path, selection[0])
+        # Run the selected file as a subprocess
+        subprocess.Popen([sys.executable, file_path])
+
+# Define the folder to scan for .py files
+folder_path = r"/path/to/folder"
+
+# Get all .py files in the folder
+files = get_files(folder_path)
+
+# Create a GUI using tkinter
+root = tk.Tk()
+root.title("Python Programs")
+
+# Create a listbox to display the files
+listbox = tk.Listbox(root, selectmode=tk.SINGLE)
+for file in files:
+    listbox.insert(tk.END, file)
+listbox.bind("<Double-Button-1>", run_file)
+listbox.pack(fill=tk.BOTH, expand=True)
+
+# Start the GUI event loop
+root.mainloop()

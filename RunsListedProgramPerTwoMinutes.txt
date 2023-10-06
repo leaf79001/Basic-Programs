@@ -1,0 +1,16 @@
+import time
+import subprocess
+
+# List of programs to run
+program_list = ['ListWifiInArea','WifiConnect.py']
+
+# Loop to run programs every two minutes
+while True:
+    for program in program_list:
+        try:
+            result = subprocess.run(['python', program], capture_output=True, timeout=120)
+            print(f"Ran {program} - Return code: {result.returncode}")
+            print(result.stdout.decode('utf-8').strip()) # Print the program output
+        except subprocess.TimeoutExpired:
+            print(f"{program} took too long to complete and was terminated.")
+    time.sleep(30) # Wait for 2 minutes before running again

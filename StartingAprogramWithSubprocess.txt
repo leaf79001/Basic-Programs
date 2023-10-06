@@ -1,0 +1,8 @@
+import subprocess
+import os
+
+# Modify permissions of the program if needed
+os.chmod("./other_program.py", 0o755)
+
+# Call another Python program in the same directory with subprocess
+subprocess.run(["python", "other_program.py"])
